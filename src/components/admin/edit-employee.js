@@ -15,7 +15,7 @@ let validateMessages = {
         'range': 'label must be between min and max',
     },
 };
-const EditDataEmployee = ({ data, isModalEdit, handleOK, CanCleModalEdit, EditEmployee }) => {
+const EditDataEmployee = ({ data, modalEdit, handleOK, CanCleModalEdit, EditEmployee }) => {
     const [form] = Form.useForm();
     const formRef = useRef(null);
     const onFinish = user => {
@@ -32,7 +32,7 @@ const EditDataEmployee = ({ data, isModalEdit, handleOK, CanCleModalEdit, EditEm
             { dataEdit ? (
                 <Modal
                     title="Sửa danh sách nhân viên"
-                    visible={isModalEdit}
+                    visible={modalEdit}
                     onOk={handleOK}
                     onCancel={CanCleModalEdit}
                     width={1000}
