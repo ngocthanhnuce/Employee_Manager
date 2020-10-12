@@ -17,7 +17,7 @@ const validateMessages = {
         'range': 'label must be between min and max',
     }
 };
-const AddNewEmployee = ({ isModal, handleOk, handleCancel ,AddEmployee}) => {
+const AddNewEmployee = ({ modalAdd, handleOk, handleCancel ,AddEmployee}) => {
     const form = useRef(null);
     const onFinish = user => {
         AddEmployee(user.user);
@@ -29,7 +29,7 @@ const AddNewEmployee = ({ isModal, handleOk, handleCancel ,AddEmployee}) => {
     return (
         <Modal
             title="Thêm nhân viên"
-            visible={isModal}
+            visible={modalAdd}
             onOk={handleOk}
             onCancel={handleCancel}
             width={1000}
