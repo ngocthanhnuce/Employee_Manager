@@ -13,8 +13,8 @@ import { addData, deleteData, editData, requestApiData } from '../../redux/actio
 export const Admin = () => {
 
   const { isAuthenticated } = useAuth0();
-  const [isModal, setIsModal] = useState(false);
-  const [isModalEdit, setIsModalEdit] = useState(false);
+  const [modalAdd, setModalAdd] = useState(false);
+  const [modalEdit, setModalEdit] = useState(false);
   const [dataEdit, setDataEdit] = useState();
   const data = useSelector(state => state.getDataReducer.employees);
   const [dataEmployee, setDataEmployee] = useState(data);
@@ -30,15 +30,15 @@ export const Admin = () => {
 
   const OpenModalEdit = (e) => {
     setDataEdit(e)
-    setIsModalEdit(true)
+    setModalEdit(true)
   }
 
   const CanCleModalEdit = () => {
-    setIsModalEdit(false)
+    setModalEdit(false)
   }
 
   const handleOK = () => {
-    setIsModalEdit(false)
+    setModalEdit(false)
   }
   const columns = [
     {
@@ -124,14 +124,14 @@ export const Admin = () => {
     setDataSearch(dataSearch)
  },[dataSearch])
   const showModal = () => {
-    setIsModal(true);
+    setModalAdd(true);
   };
 
   const handleOk = e => {
-    setIsModal(false)
+    setModalAdd(false)
   };
   const handleCancel = e => {
-    setIsModal(false)
+    setModalAdd(false)
   };
   const AddEmployee = (dataNew) => {
     dispatch(addData(dataNew));
@@ -167,10 +167,10 @@ export const Admin = () => {
           <div className="d-flex justify-content-between ">
             <div className="admin-button">
               <Search className="search" placeholder="input search text" onChange={(e) => handleOnchange(e.target.value)} onSearch={(e) => handleSearch(e)} style = {{ padding: "0 40% 0 1%"}} enterButton />
-              <Button className="add" onClick={showModal} type="primary"><UserAddOutlined /> Add New Employee</Button>
+              <Button className="add" onClick={ showModal } type="primary"><UserAddOutlined /> Add New Employee</Button>
             </div>
             <NotificationContainer />
-            { isModal === true ? <AddNewEmployee AddEmployee={AddEmployee} isModal={isModal} handleOk={handleOk} handleCancel={handleCancel} /> : ''}
+            { modalAdd ? <AddNewEmployee AddEmployee={ AddEmployee } modalAdd={ modalAdd } handleOk={ handleOk } handleCancel={ handleCancel } /> : ''}
           </div>
           <h1>Danh sách nhân viên</h1>
           <div className="mt-4">
@@ -181,9 +181,9 @@ export const Admin = () => {
               columns={columns}
               expandable={{
                 expandedRowRender: record => <div><p style={{ margin: 0 }}>Mã nhân viên {record.code} tên {record.name} sinh vào ngày {record.birth}, hiện tại đang sinh sống tại {record.address} và làm việc tại công ty {record.company} </p><p>Mô tả: {record.description}</p></div>
-              }} dataSource={dataEmployee} size="middle" onChange={onChange}  style={{ width: 1100, paddingLeft: "2%" }} />
+              }} dataSource={ dataEmployee } size="middle" onChange={ onChange }  style={{ width: 1600, paddingLeft: "2%" }} />
           </div>
-          { isModalEdit === true ? <EditDataEmployee data={dataEdit} isModalEdit={isModalEdit} CanCleModalEdit={CanCleModalEdit} handleOK={handleOK} EditEmployee={EditEmployee} /> : ''}
+          { modalEdit ? <EditDataEmployee data={ dataEdit } modalEdit={ modalEdit } CanCleModalEdit={ CanCleModalEdit } handleOK={ handleOK } EditEmployee={ EditEmployee } /> : ''}
         </div>
       ) : ('')}
     </>
